@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace APIPay.Controllers
+namespace APIPay.ApiControllers
 {
     public class PaymentController : Controller
     {
