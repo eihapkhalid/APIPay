@@ -2,6 +2,7 @@
 
 namespace APIPay.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class PaymentAdminController : Controller
     {
         public IActionResult Index()

@@ -31,10 +31,10 @@ namespace APIPay
             {
                 endpoints.MapControllerRoute(
                     name: "admin",
-                    pattern: "{area:exists}/{controller=Users}/{action=List}");
+                    pattern: "{area:exists}/{controller=PaymentAdmin}/{action=Index}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Trans}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
             #endregion
 
