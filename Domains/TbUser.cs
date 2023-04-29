@@ -33,6 +33,10 @@ namespace Domains
         [RegularExpression("^[0-9]{10}$")]
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Phone must be between 9 and 50 characters.")]
         public string Phone { get; set; }
+
+        public virtual TbBankAccount BankAccount { get; set; }// one(User) to one(Bank Account)
+        public virtual ICollection<TbPayment> Payments { get; set; } = new List<TbPayment>();
+
     }
 
 }

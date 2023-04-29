@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Domains
 {
     public class TbBankAccount
@@ -34,6 +35,8 @@ namespace Domains
         public decimal Balance { get; set; }
 
         public virtual TbUser User { get; set; }// one(User) to one(Bank Account)
+        public virtual ICollection<TbPayment> Payments { get; set; } = new List<TbPayment>();
+
     }
 
 }
