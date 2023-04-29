@@ -26,9 +26,17 @@ namespace APIPay
 
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            #region UseEndpoints routing
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "admin",
+                    pattern: "{area:exists}/{controller=Users}/{action=List}");
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Trans}/{action=Index}/{id?}");
+            });
+            #endregion
 
             app.Run();
         }
