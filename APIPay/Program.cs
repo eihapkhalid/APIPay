@@ -1,3 +1,7 @@
+using Bl;
+using Domains;
+using static Bl.IBusinessLayer;
+
 namespace APIPay
 {
     public class Program
@@ -9,6 +13,8 @@ namespace APIPay
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            //Add scope for TbUser (dependcy injection)
+            builder.Services.AddScoped<IBusinessLayer<TbUser>, ClsUsers>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
