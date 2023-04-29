@@ -14,6 +14,16 @@ namespace APIPay.ApiControllers
             
         }
         #endregion
+
+        #region GET All Users: api/<TransController>/Get
+        [HttpGet]
+        [Route("Get")]
+        public List<TbUser> Get()
+        {
+            return oClsUsers.GetAll();
+        }
+        #endregion
+
         public IActionResult Index()
         {
             return View();
