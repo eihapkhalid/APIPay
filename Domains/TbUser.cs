@@ -34,6 +34,8 @@ namespace Domains
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Phone must be between 9 and 50 characters.")]
         public string Phone { get; set; }
 
+        [Required]
+        public int CurrentState { get; set; } = 1;
         public virtual TbBankAccount BankAccount { get; set; }// one(User) to one(Bank Account)
         public virtual ICollection<TbPayment> Payments { get; set; } = new List<TbPayment>();
 

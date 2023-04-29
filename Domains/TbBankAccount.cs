@@ -34,6 +34,9 @@ namespace Domains
         [Range(0.000000000001, 9999999999.99, ErrorMessage = "Balance must be between 0.000000000001 and 9999999999.99.")]
         public decimal Balance { get; set; }
 
+        [Required]
+        public int CurrentState { get; set; } = 1;
+
         public virtual TbUser User { get; set; }// one(User) to one(Bank Account)
         public virtual ICollection<TbPayment> Payments { get; set; } = new List<TbPayment>();
 

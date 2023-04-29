@@ -9,9 +9,9 @@ namespace Bl
 {
     public class PaymentUserDbContext : DbContext
     {
-        public DbSet<TbUser> Users { get; set; }
-        public DbSet<TbBankAccount> BankAccounts { get; set; }
-        public DbSet<TbPayment> Payments { get; set; }
+        public DbSet<TbUser> TbUsers { get; set; }
+        public DbSet<TbBankAccount> TbBankAccounts { get; set; }
+        public DbSet<TbPayment> TbPayments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
