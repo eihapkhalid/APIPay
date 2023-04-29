@@ -37,11 +37,6 @@ namespace Bl
         } 
         #endregion
 
-        public bool Delete(TbUser table)
-        {
-            throw new NotImplementedException();
-        }
-
         #region Get All User Data
         public List<TbUser> GetAll()
         {
@@ -98,9 +93,15 @@ namespace Bl
         }
         #endregion
 
+        #region Hashed
         public bool Payments(TbUser table)
         {
             throw new NotImplementedException();
         }
+        public bool Delete(TbUser table)
+        {
+            throw new NotImplementedException();
+        } 
+        #endregion
     }
 }
