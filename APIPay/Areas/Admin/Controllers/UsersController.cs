@@ -29,5 +29,18 @@ namespace APIPay.Areas.Admin.Controllers
             return View(lstUsers);
         }
         #endregion
+
+        #region Edit by User id
+        public IActionResult Edit(int? userId)
+        {
+            var ObjUser = new TbUser();
+
+            if (userId != null)
+            {
+                ObjUser = oClsUsers.GetById(Convert.ToInt32(userId));
+            }
+            return View(ObjUser);
+        }
+        #endregion
     }
 }
