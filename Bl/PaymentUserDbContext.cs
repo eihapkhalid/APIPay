@@ -35,10 +35,10 @@ namespace Bl
                 .HasForeignKey(p => p.BankAccountId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<TbBankAccount>()
+           /* modelBuilder.Entity<TbBankAccount>()
                 .HasOne(b => b.User)
-                .WithOne(u => u.BankAccount)
-                .HasForeignKey<TbBankAccount>(b => b.UserId);
+                //.WithOne(u => u.BankAccount)
+                .HasForeignKey<TbBankAccount>(b => b.UserId);*/
         }
     }
 
