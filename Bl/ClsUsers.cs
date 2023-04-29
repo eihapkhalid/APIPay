@@ -56,15 +56,35 @@ namespace Bl
             {
                 return new TbUser();
             }
-        } 
+        }
+        #endregion
+
+        #region Save or Edit user Data
+        public bool Save(TbUser user)
+        {
+            try
+            {
+                if (user.UserId == 0)
+                {
+                    user.CurrentState = 1;
+                    context.TbUsers.Add(user);
+                }
+                else
+                {
+                   // user.CurrentState = 1;
+                    context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                }
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         #endregion
 
         public bool Payments(TbUser table)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Save(TbUser table)
         {
             throw new NotImplementedException();
         }
