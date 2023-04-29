@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domains
 {
-    public class User
+    public class TbUser
     {
         [Key]
         [ValidateNever]

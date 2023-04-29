@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domains
 {
-    public class BankAccount
+    public class TbBankAccount
     {
         [Key]
         [ValidateNever]
@@ -33,7 +33,7 @@ namespace Domains
         [Range(0.000000000001, 9999999999.99, ErrorMessage = "Balance must be between 0.000000000001 and 9999999999.99.")]
         public decimal Balance { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual TbUser User { get; set; }
     }
 
 }

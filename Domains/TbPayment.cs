@@ -37,8 +37,8 @@ namespace Domains
         [StringLength(3, MinimumLength = 3, ErrorMessage = "Currency code must be 3 characters.")]
         public string Currency { get; set; }
 
-        public virtual User User { get; set; }
-        public virtual BankAccount BankAccount { get; set; }
+        public virtual TbUser User { get; set; }
+        public virtual TbBankAccount BankAccount { get; set; }
     }
 
 }
