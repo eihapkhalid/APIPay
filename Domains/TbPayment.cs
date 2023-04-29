@@ -38,7 +38,7 @@ namespace Domains
         public string Currency { get; set; }
 
         public virtual TbUser User { get; set; }
-        public virtual TbBankAccount BankAccount { get; set; }
+        public virtual TbBankAccount BankAccount { get; set; } //one(Bank Account) to many(Payments)
     }
 
 }
