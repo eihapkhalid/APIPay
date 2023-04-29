@@ -15,13 +15,27 @@ namespace Bl
         public ClsUsers(PaymentUserDbContext ctx)
         {
             context = ctx;
-        } 
+        }
         #endregion
 
+        #region Delete user
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+
+                var user = GetById(id);
+                user.CurrentState = 0;
+                context.SaveChanges();
+                return true;
+
+            }
+            catch
+            {
+                return false;
+            }
+        } 
+        #endregion
 
         public bool Delete(TbUser table)
         {
