@@ -23,12 +23,14 @@ namespace Bl
             modelBuilder.Entity<TbPayment>()
                 .HasOne(p => p.User)
                 .WithMany(u => u.Payments)
-                .HasForeignKey(p => p.UserId);
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<TbPayment>()
                 .HasOne(p => p.BankAccount)
                 .WithMany(b => b.Payments)
-                .HasForeignKey(p => p.BankAccountId);
+                .HasForeignKey(p => p.BankAccountId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<TbBankAccount>()
                 .HasOne(b => b.User)
