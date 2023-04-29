@@ -1,5 +1,6 @@
 using Bl;
 using Domains;
+using Microsoft.EntityFrameworkCore;
 using static Bl.IBusinessLayer;
 
 namespace APIPay
@@ -12,6 +13,7 @@ namespace APIPay
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<PaymentUserDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             //Add scope for TbUser (dependcy injection)
             builder.Services.AddScoped<IBusinessLayer<TbUser>, ClsUsers>();
