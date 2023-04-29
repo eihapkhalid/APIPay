@@ -28,6 +28,7 @@ namespace Bl
             throw new NotImplementedException();
         }
 
+        #region Get All User Data
         public List<TbUser> GetAll()
         {
             try
@@ -40,11 +41,23 @@ namespace Bl
                 return new List<TbUser>();
             }
         }
+        #endregion
 
+        #region Get user By Id
         public TbUser GetById(int id)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+
+                var ObjUser = context.TbUsers.Where(a => a.UserId == id && a.CurrentState == 1).FirstOrDefault();
+                return ObjUser;
+            }
+            catch
+            {
+                return new TbUser();
+            }
+        } 
+        #endregion
 
         public bool Payments(TbUser table)
         {
