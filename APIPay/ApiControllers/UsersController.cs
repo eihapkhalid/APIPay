@@ -33,6 +33,14 @@ namespace APIPay.ApiControllers
         }
         #endregion
 
+        #region POST New or Edit user: api/<TransController>
+        [HttpPost]
+        public void Post([FromBody] TbUser user)
+        {
+            oClsUsers.Save(user);
+        }
+        #endregion
+
         public IActionResult Index()
         {
             return View();
