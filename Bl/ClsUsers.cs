@@ -30,7 +30,15 @@ namespace Bl
 
         public List<TbUser> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var lstUsers = context.TbUsers.Where(a => a.CurrentState == 1).ToList();
+                return lstUsers;
+            }
+            catch
+            {
+                return new List<TbUser>();
+            }
         }
 
         public TbUser GetById(int id)
