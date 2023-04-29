@@ -42,5 +42,19 @@ namespace APIPay.Areas.Admin.Controllers
             return View(ObjUser);
         }
         #endregion
+
+        #region Save by User object
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Save(TbUser user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Edit", user);
+            }
+            oClsUsers.Save(user);
+            return RedirectToAction("List");
+        }
+        #endregion
     }
 }
