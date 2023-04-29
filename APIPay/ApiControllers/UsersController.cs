@@ -24,6 +24,15 @@ namespace APIPay.ApiControllers
         }
         #endregion
 
+        #region GET User By Id: api/<TransController>/Get/5
+        [HttpGet("{id}")]
+        [Route("Get/{id}")]
+        public TbUser Get(int id)
+        {
+            return oClsUsers.GetById(id);
+        }
+        #endregion
+
         public IActionResult Index()
         {
             return View();
