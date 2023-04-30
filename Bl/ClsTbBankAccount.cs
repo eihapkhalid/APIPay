@@ -33,13 +33,23 @@ namespace Bl
             {
                 return false;
             }
-        } 
+        }
         #endregion
 
+        #region Get All Bank Accounts
         public List<TbBankAccount> GetAll()
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var lstBankAccounts = context.TbBankAccounts.Where(a => a.CurrentState == 1).ToList();
+                return lstBankAccounts;
+            }
+            catch
+            {
+                return new List<TbBankAccount>();
+            }
+        } 
+        #endregion
 
         public TbBankAccount GetById(int id)
         {
