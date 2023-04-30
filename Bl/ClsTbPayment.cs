@@ -23,8 +23,8 @@ namespace Bl
             try
             {
 
-                var bankAccount = GetById(id);
-                bankAccount.CurrentState = 0;
+                var payment = GetById(id);
+                payment.CurrentState = 0;
                 context.SaveChanges();
                 return true;
 
@@ -33,13 +33,23 @@ namespace Bl
             {
                 return false;
             }
-        } 
+        }
         #endregion
 
+        #region Get All Payments
         public List<TbPayment> GetAll()
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var lstPayments = context.TbPayments.Where(a => a.CurrentState == 1).ToList();
+                return lstPayments;
+            }
+            catch
+            {
+                return new List<TbPayment>();
+            }
+        } 
+        #endregion
 
         public TbPayment GetById(int id)
         {
