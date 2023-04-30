@@ -67,13 +67,6 @@ namespace Bl
         }
         #endregion
 
-        #region Hashed Function
-        public bool Payments(TbPayment table)
-        {
-            throw new NotImplementedException();
-        } 
-        #endregion
-
         #region Save
         public bool Save(TbPayment payment)
         {
@@ -95,7 +88,14 @@ namespace Bl
             {
                 return false;
             }
-        } 
+        }
+        #endregion
+
+        #region Hashed Function
+        public bool Payments(TbPayment table)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
     }
