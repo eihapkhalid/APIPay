@@ -57,7 +57,6 @@ namespace Bl
         {
             try
             {
-
                 var ObjUser = context.TbUsers.Where(a => a.UserId == id && a.CurrentState == 1).FirstOrDefault();
                 return ObjUser;
             }

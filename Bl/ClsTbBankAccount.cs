@@ -48,13 +48,23 @@ namespace Bl
             {
                 return new List<TbBankAccount>();
             }
-        } 
+        }
         #endregion
 
+        #region Get BankAccount By id
         public TbBankAccount GetById(int id)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var ObjBankAccount = context.TbBankAccounts.Where(a => a.UserId == id && a.CurrentState == 1).FirstOrDefault();
+                return ObjBankAccount;
+            }
+            catch
+            {
+                return new TbBankAccount();
+            }
+        } 
+        #endregion
 
         public bool Payments(TbBankAccount table)
         {
