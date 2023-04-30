@@ -44,5 +44,14 @@ namespace APIPay.ApiControllers
             oClsTbBankAccount.Save(bankAccount);
         }
         #endregion
+
+        #region POST Delte BanckAcount: 
+        [HttpPost]
+        [Route("Delete")]
+        public void Delete([FromBody] int banckAcountId)
+        {
+            oClsTbBankAccount.Delete(banckAcountId);
+        }
+        #endregion
     }
 }
