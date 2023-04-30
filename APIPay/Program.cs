@@ -1,6 +1,9 @@
 using Bl;
 using Domains;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using static Bl.IBusinessLayer;
 
 namespace APIPay
@@ -13,12 +16,39 @@ namespace APIPay
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //Add dbcontext :
             builder.Services.AddDbContext<PaymentUserDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            //Add scope for TbUser (dependcy injection)
+            #region Add scope (dependcy injection) 
+            //Add scope for TbUser,TbBankAccount,TbPayment (dependcy injection)
             builder.Services.AddScoped<IBusinessLayer<TbUser>, ClsUsers>();
             builder.Services.AddScoped<IBusinessLayer<TbBankAccount>, ClsTbBankAccount>();
-            builder.Services.AddScoped<IBusinessLayer<TbPayment>, ClsTbPayment>();
+            builder.Services.AddScoped<IBusinessLayer<TbPayment>, ClsTbPayment>(); 
+            #endregion
+
+            #region JwtBearer Authentication
+            // Install-Package Microsoft.AspNetCore.Authentication.JwtBearer
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(o =>
+            {
+                o.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                    ValidAudience = builder.Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey
+                    (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true
+                };
+            }); 
+            #endregion
 
             var app = builder.Build();
 
@@ -35,6 +65,7 @@ namespace APIPay
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             #region UseEndpoints routing
