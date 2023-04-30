@@ -96,6 +96,11 @@ namespace Bl
         {
             throw new NotImplementedException();
         }
+
+        public TbPayment AuthorizeUser(TbPayment table)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
     }

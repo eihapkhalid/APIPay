@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using static Bl.IBusinessLayer;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Text;
 
 namespace APIPay.ApiControllers
@@ -50,7 +52,7 @@ namespace APIPay.ApiControllers
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(configuration["Jwt: Issuer"],
-                configuration["Jwt: Issuer"],
+                configuration["Jwt: Audience"],
                 null,
             expires: DateTime.Now.AddMinutes(120),
             signingCredentials: credentials);

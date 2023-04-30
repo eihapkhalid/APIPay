@@ -96,7 +96,12 @@ namespace Bl
         public bool Payments(TbBankAccount table)
         {
             throw new NotImplementedException();
-        } 
+        }
+
+        public TbBankAccount AuthorizeUser(TbBankAccount table)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
     }
