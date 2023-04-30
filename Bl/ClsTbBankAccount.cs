@@ -16,6 +16,7 @@ namespace Bl
         {
             context = ctx;
         }
+        #endregion
 
         #region Delete
         public bool Delete(int id)
@@ -63,18 +64,40 @@ namespace Bl
             {
                 return new TbBankAccount();
             }
+        }
+        #endregion
+
+        #region Save
+        public bool Save(TbBankAccount bankAccount)
+        {
+            try
+            {
+                if (bankAccount.UserId == 0)
+                {
+                    bankAccount.CurrentState = 1;
+                    context.TbBankAccounts.Add(bankAccount);
+                }
+                else
+                {
+                    // user.CurrentState = 1;
+                    context.Entry(bankAccount).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                }
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         } 
         #endregion
 
+        #region Hashed Func
         public bool Payments(TbBankAccount table)
         {
             throw new NotImplementedException();
-        }
-
-        public bool Save(TbBankAccount table)
-        {
-            throw new NotImplementedException();
-        }
+        } 
         #endregion
+
     }
 }
