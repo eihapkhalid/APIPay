@@ -36,5 +36,13 @@ namespace APIPay.ApiControllers
             return oClsTbPayment.GetById(id);
         }
         #endregion
+
+        #region POST New or Edit Payment:
+        [HttpPost]
+        public void Post([FromBody] TbPayment payment)
+        {
+            oClsTbPayment.Save(payment);
+        }
+        #endregion
     }
 }
