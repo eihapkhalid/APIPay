@@ -27,5 +27,14 @@ namespace APIPay.ApiControllers
             return oClsTbPayment.GetAll();
         }
         #endregion
+
+        #region GET Payment By Id:
+        [HttpGet("{id}")]
+        [Route("Get/{id}")]
+        public TbPayment Get(int id)
+        {
+            return oClsTbPayment.GetById(id);
+        }
+        #endregion
     }
 }
