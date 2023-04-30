@@ -92,6 +92,27 @@ namespace Bl
         }
         #endregion
 
+        #region AuthorizeUser function:
+        // way for test :
+        public TbUser AuthorizeUser(TbUser table)
+        {
+            // Perform user authorization logic based on your business requirements
+            // For example, query the database to verify username and password
+            TbUser user = context.TbUsers.FirstOrDefault(u => u.UserName == table.UserName && u.Password == table.Password);
+
+            if (user != null)
+            {
+                return new TbUser()
+                {
+                    UserName = user.UserName,
+                    Email = user.Email
+                };
+            }
+
+            return null;
+        }
+        #endregion
+
         #region Hashed
         public bool Payments(TbUser table)
         {

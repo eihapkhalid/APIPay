@@ -15,6 +15,7 @@ namespace Bl
             bool Save(t table);
             bool Delete(int id);
             bool Payments(t table);
+            t AuthorizeUser(t table);
         }
     }
 }
