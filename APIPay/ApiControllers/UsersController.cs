@@ -47,15 +47,11 @@ namespace APIPay.ApiControllers
         #region POST Delte user: api/<TransController>/Delete
         [HttpPost]
         [Route("Delete")]
-        public void Delete([FromBody] TbUser user)
+        public void Delete([FromBody] int userId)
         {
-            oClsUsers.Delete(user);
+            oClsUsers.Delete(userId);
         }
         #endregion
 
-        public IActionResult Index()
-        {
-            return View();
-        }
     }
 }
