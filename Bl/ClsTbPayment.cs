@@ -48,13 +48,23 @@ namespace Bl
             {
                 return new List<TbPayment>();
             }
-        } 
+        }
         #endregion
 
+        #region Get Payment ById
         public TbPayment GetById(int id)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var ObjPayment = context.TbPayments.Where(a => a.PaymentId == id && a.CurrentState == 1).FirstOrDefault();
+                return ObjPayment;
+            }
+            catch
+            {
+                return new TbPayment();
+            }
+        } 
+        #endregion
 
         public bool Payments(TbPayment table)
         {
