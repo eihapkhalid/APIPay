@@ -24,8 +24,8 @@ namespace Bl
             try
             {
 
-                var user = GetById(id);
-                user.CurrentState = 0;
+                var bankAccount = GetById(id);
+                bankAccount.CurrentState = 0;
                 context.SaveChanges();
                 return true;
 
@@ -57,7 +57,7 @@ namespace Bl
         {
             try
             {
-                var ObjBankAccount = context.TbBankAccounts.Where(a => a.UserId == id && a.CurrentState == 1).FirstOrDefault();
+                var ObjBankAccount = context.TbBankAccounts.Where(a => a.BankAccountId == id && a.CurrentState == 1).FirstOrDefault();
                 return ObjBankAccount;
             }
             catch
