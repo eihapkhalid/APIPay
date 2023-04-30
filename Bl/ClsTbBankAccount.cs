@@ -72,7 +72,7 @@ namespace Bl
         {
             try
             {
-                if (bankAccount.UserId == 0)
+                if (bankAccount.BankAccountId == 0)
                 {
                     bankAccount.CurrentState = 1;
                     context.TbBankAccounts.Add(bankAccount);
