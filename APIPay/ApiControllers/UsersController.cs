@@ -1,17 +1,20 @@
 ﻿using Domains;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static Bl.IBusinessLayer;
 
 namespace APIPay.ApiControllers
 {
-    public class UsersController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UsersController : ControllerBase
     {
         #region dependency injection region
         IBusinessLayer<TbUser> oClsUsers;
-        public UsersController(IBusinessLayer<TbUser> Users, IBusinessLayer<TbFinancialTransaction> financialTransaction, IBusinessLayer<VwTransWacountDetail> vwTransWacountDetails)
+        public UsersController(IBusinessLayer<TbUser> Users)
         {
             oClsUsers = Users;
-            
+
         }
         #endregion
 
