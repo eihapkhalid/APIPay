@@ -36,5 +36,13 @@ namespace APIPay.ApiControllers
             return oClsTbBankAccount.GetById(id);
         }
         #endregion
+
+        #region POST New or Edit BankAccount:
+        [HttpPost]
+        public void Post([FromBody] TbBankAccount bankAccount)
+        {
+            oClsTbBankAccount.Save(bankAccount);
+        }
+        #endregion
     }
 }
