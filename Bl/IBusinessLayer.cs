@@ -14,7 +14,6 @@ namespace Bl
             t GetById(int id);
             bool Save(t table);
             bool Delete(int id);
-           // bool Delete(t table);
             bool Payments(t table);
         }
     }
