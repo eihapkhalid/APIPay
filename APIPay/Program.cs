@@ -18,6 +18,7 @@ namespace APIPay
             //Add scope for TbUser (dependcy injection)
             builder.Services.AddScoped<IBusinessLayer<TbUser>, ClsUsers>();
             builder.Services.AddScoped<IBusinessLayer<TbBankAccount>, ClsTbBankAccount>();
+            builder.Services.AddScoped<IBusinessLayer<TbPayment>, ClsTbPayment>();
 
             var app = builder.Build();
 
