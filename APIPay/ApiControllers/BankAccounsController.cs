@@ -1,4 +1,5 @@
-﻿using Domains;
+﻿using Bl;
+using Domains;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static Bl.IBusinessLayer;
@@ -15,6 +16,15 @@ namespace APIPay.ApiControllers
         {
             oClsTbBankAccount = bankAccount;
 
+        }
+        #endregion
+
+        #region GET All BankAccouns:
+        [HttpGet]
+        [Route("Get")]
+        public List<TbBankAccount> Get()
+        {
+            return oClsTbBankAccount.GetAll();
         }
         #endregion
     }
