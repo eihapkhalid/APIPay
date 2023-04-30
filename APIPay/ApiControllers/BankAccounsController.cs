@@ -27,5 +27,14 @@ namespace APIPay.ApiControllers
             return oClsTbBankAccount.GetAll();
         }
         #endregion
+
+        #region GET BankAccouns By Id:
+        [HttpGet("{id}")]
+        [Route("Get/{id}")]
+        public TbBankAccount Get(int id)
+        {
+            return oClsTbBankAccount.GetById(id);
+        }
+        #endregion
     }
 }
