@@ -44,5 +44,14 @@ namespace APIPay.ApiControllers
             oClsTbPayment.Save(payment);
         }
         #endregion
+
+        #region POST Delte Payment: 
+        [HttpPost]
+        [Route("Delete")]
+        public void Delete([FromBody] int paymentId)
+        {
+            oClsTbPayment.Delete(paymentId);
+        }
+        #endregion
     }
 }
