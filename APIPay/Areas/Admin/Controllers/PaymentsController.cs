@@ -50,5 +50,13 @@ namespace APIPay.Areas.Admin.Controllers
             return RedirectToAction("List");
         }
         #endregion
+
+        #region Delete By payment Id
+        public IActionResult Delete(int paymentId)
+        {
+            oClsTbPayment.Delete(paymentId);
+            return RedirectToAction("List");
+        }
+        #endregion
     }
 }
