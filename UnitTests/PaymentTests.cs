@@ -64,8 +64,8 @@ namespace UnitTests
         #endregion
 
         [TestMethod]
-        #region AddsNewUser
-        public void Post_AddsNewUser()
+        #region AddsNewPayment
+        public void Post_AddsNewPayment()
         {
             // Arrange
             var expectedPayments = new TbPayment { PaymentId = 1, TransactionNumber = "User1", Currency = "SDG", Amount = (decimal)700.5, CurrentState = 1 };
