@@ -32,8 +32,8 @@ namespace UnitTests
             // Arrange
             var expectedBankAccounts = new List<TbBankAccount>
                     {
-                        new TbBankAccount {  UserId = 1, AccountNumber = "1234567891011121344", BankName="bank1", BranchNumber="Sudan", Balance =(decimal)200.25, CurrentState = 1 },
-                        new TbBankAccount {  UserId = 1, AccountNumber = "9867510531011121344", BankName="bank2", BranchNumber="Saudi", Balance =(decimal)10.25F, CurrentState = 1 }
+                        new TbBankAccount {  BankAccountId = 1, AccountNumber = "1234567891011121344", BankName="bank1", BranchNumber="Sudan", Balance =(decimal)200.25, CurrentState = 1 },
+                        new TbBankAccount {  BankAccountId = 1, AccountNumber = "9867510531011121344", BankName="bank2", BranchNumber="Saudi", Balance =(decimal)10.25F, CurrentState = 1 }
                     };
             _mockBankAccountBusinessLayer.Setup(b => b.GetAll()).Returns(expectedBankAccounts);
             // Act
@@ -49,15 +49,30 @@ namespace UnitTests
         public void GetBankAccountById_ReturnsUser()
         {
             // Arrange
-            var userId = 1;
-            var expectedBankAccount = new TbBankAccount { UserId = 1, AccountNumber = "1234567891011121344", BankName = "bank1", BranchNumber = "Sudan", Balance = (decimal)200.25, CurrentState = 1 };
-            _mockBankAccountBusinessLayer.Setup(b => b.GetById(userId)).Returns(expectedBankAccount);
+            var BankAccountId = 1;
+            var expectedBankAccount = new TbBankAccount { BankAccountId = 1, AccountNumber = "1234567891011121344", BankName = "bank1", BranchNumber = "Sudan", Balance = (decimal)200.25, CurrentState = 1 };
+            _mockBankAccountBusinessLayer.Setup(b => b.GetById(BankAccountId)).Returns(expectedBankAccount);
 
             // Act
-            var result = _controller.Get(userId);
+            var result = _controller.Get(BankAccountId);
 
             // Assert
             Assert.AreEqual(expectedBankAccount, result);
+        }
+        #endregion
+
+        [TestMethod]
+        #region AddsNewBankAccount
+        public void Post_AddsNewBankAccount()
+        {
+            // Arrange
+            var expectedBankAccount = new TbBankAccount { BankAccountId = 1, AccountNumber = "1234567891011121344", BankName = "bank1", BranchNumber = "Sudan", Balance = (decimal)200.25, CurrentState = 1 };
+
+            // Act
+            _controller.Post(expectedBankAccount);
+
+            // Assert
+            _mockBankAccountBusinessLayer.Verify(b => b.Save(expectedBankAccount), Times.Once);
         }
         #endregion
     }
