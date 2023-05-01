@@ -1,4 +1,5 @@
 ﻿using Domains;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,6 +91,26 @@ namespace Bl
             }
         }
         #endregion
+
+        public async Task<bool> ProcessPayment(int userId, decimal amount)
+        {
+            // TODO: Implement payment processing algorithm here
+            // You can use the userId and amount to validate the payment
+
+            // Insert payment record into database
+            var payment = new TbPayment
+            {
+                UserId = userId,
+                Amount = amount,
+                Date = DateTime.UtcNow
+            };
+            await context.TbPayments.AddAsync(payment);
+            await context.SaveChangesAsync();
+
+            // Return true to indicate payment was successfully processed
+            return true;
+        }
+
 
         #region Hashed Function
         public bool Payments(TbPayment table)
