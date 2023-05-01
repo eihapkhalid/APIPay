@@ -22,5 +22,20 @@ namespace APIPay.Areas.Admin.Controllers
             return View(lstBankAccounts);
         }
         #endregion
+
+        #region Edit by bankAccount id
+        public IActionResult Edit(int? bankAccountId)
+        {
+            var ObjBankAccount = new TbBankAccount();
+
+            if (bankAccountId != null)
+            {
+                ObjBankAccount = oClsTbBankAccount.GetById(Convert.ToInt32(bankAccountId));
+            }
+            return View(ObjBankAccount);
+        }
+        #endregion
+
+        
     }
 }
