@@ -29,8 +29,8 @@
                                 <td>@user.BranchNumber</td>
                                         <td>@user.Balance</td>
                                 <td>
-                                    <a asp-area="admin" asp-controller="Payments" asp-action="Edit"   asp-route-paymentId="@user.PaymentId "  type="button" value="Edit" class="btn btn-gradient-info btn-rounded btn-fw" >    Edit</a> 
-                                    <a asp-area="admin" asp-controller="Payments" asp-action="Delete" asp-route-paymentId="@user.PaymentId "  type="button" value="Delete" class="btn btn-gradient-danger btn-rounded btn-fw" >Delete</a>
+                                    <a asp-area="admin" asp-controller="Payments" asp-action="Edit"   asp-route-bankAccountId="@user.BankAccountId "  type="button" value="Edit" class="btn btn-gradient-info btn-rounded btn-fw" >    Edit</a> 
+                                    <a asp-area="admin" asp-controller="Payments" asp-action="Delete" asp-route-bankAccountId="@user.BankAccountId "  type="button" value="Delete" class="btn btn-gradient-danger btn-rounded btn-fw" >Delete</a>
                                 </td>
                             </tr>
                         }
