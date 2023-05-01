@@ -26,6 +26,24 @@ namespace UnitTests
         }
         #endregion
 
+        [TestMethod]
+        #region GetAllUsers
+        public void GetAllUsers_ReturnsListOfUsers()
+        {
+            // Arrange
+            var expectedUsers = new List<TbUser>
+                    {
+                        new TbUser { UserId = 1, UserName = "User1", Password="123", Email="eihap@gmail.com", CurrentState = 1 },
+                        new TbUser { UserId = 2, UserName = "User2", Password="777", Email="omerf@gmail.com", CurrentState = 1 }
+                    };
+            _mockUsersBusinessLayer.Setup(b => b.GetAll()).Returns(expectedUsers);
+            // Act
+            var result = _controller.Get();
+
+            // Assert
+            Assert.AreEqual(expectedUsers, result);
+        }
+        #endregion
 
     }
 }
