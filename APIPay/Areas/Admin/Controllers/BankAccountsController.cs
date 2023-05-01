@@ -36,6 +36,19 @@ namespace APIPay.Areas.Admin.Controllers
         }
         #endregion
 
-        
+        #region Save by bankAccount object
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Save(TbBankAccount bankAccount)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Edit", bankAccount);
+            }
+            oClsTbBankAccount.Save(bankAccount);
+            return RedirectToAction("List");
+        }
+        #endregion
+
     }
 }
