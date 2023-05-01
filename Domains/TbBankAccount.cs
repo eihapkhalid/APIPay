@@ -37,7 +37,7 @@ namespace Domains
         [Required]
         public int CurrentState { get; set; } = 1;
 
-        public virtual TbUser User { get; set; }// one(User) to one(Bank Account)
+        public virtual TbUser? User { get; set; }// one(User) to one(Bank Account)
         public virtual ICollection<TbPayment> Payments { get; set; } = new List<TbPayment>();
 
     }
