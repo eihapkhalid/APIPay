@@ -50,5 +50,13 @@ namespace APIPay.Areas.Admin.Controllers
         }
         #endregion
 
+        #region Delete By bankAccount Id
+        public IActionResult Delete(int bankAccountId)
+        {
+            oClsTbBankAccount.Delete(bankAccountId);
+            return RedirectToAction("List");
+        }
+        #endregion
+
     }
 }
