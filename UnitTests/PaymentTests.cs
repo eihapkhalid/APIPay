@@ -25,5 +25,25 @@ namespace UnitTests
                 );
         }
         #endregion
+
+        [TestMethod]
+        #region GetAllPayments
+        public void GetAllPayments_ReturnsListOfPayments()
+        {
+            // Arrange
+            var expectedPayments = new List<TbPayment>
+                    {
+                        new TbPayment { PaymentId = 1, TransactionNumber = "User1", Currency="SDG", Amount = (decimal)700.5, CurrentState = 1 },
+                        new TbPayment { PaymentId = 2, TransactionNumber = "User2", Currency="AUE", Amount = (decimal)50.05, CurrentState = 1 }
+                    };
+            _mockPaymentsBusinessLayer.Setup(b => b.GetAll()).Returns(expectedPayments);
+            // Act
+            var result = _controller.Get();
+
+            // Assert
+            Assert.AreEqual(expectedPayments, result);
+        }
+        #endregion
+
     }
 }
