@@ -45,5 +45,21 @@ namespace UnitTests
         }
         #endregion
 
+        [TestMethod]
+        #region GetUserById
+        public void GetUserById_ReturnsUser()
+        {
+            // Arrange
+            var userId = 1;
+            var expectedUser = new TbUser { UserId = userId, UserName = "User1", Password = "123", Email = "eihap@gmail.com", CurrentState = 1 };
+            _mockUsersBusinessLayer.Setup(b => b.GetById(userId)).Returns(expectedUser);
+
+            // Act
+            var result = _controller.Get(userId);
+
+            // Assert
+            Assert.AreEqual(expectedUser, result);
+        }
+        #endregion
     }
 }
