@@ -5,16 +5,22 @@ using static Bl.IBusinessLayer;
 namespace APIPay.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PaymentController : Controller
+    public class PaymenstController : Controller
     {
         #region Dependancy Injections
         IBusinessLayer<TbPayment> oClsTbPayment;
-        public PaymentController(IBusinessLayer<TbPayment> payment)
+        public PaymenstController(IBusinessLayer<TbPayment> payment)
         {
             oClsTbPayment = payment;
         }
         #endregion
 
-       
+        #region List of Payments
+        public IActionResult List()
+        {
+            var lstPayments = oClsTbPayment.GetAll();
+            return View(lstPayments);
+        }
+        #endregion
     }
 }
