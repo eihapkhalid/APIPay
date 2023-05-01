@@ -10,6 +10,7 @@ using static Bl.IBusinessLayer;
 
 namespace UnitTests
 {
+    [TestClass]
     public class PaymentTests
     {
         #region dependency injection region
@@ -62,5 +63,19 @@ namespace UnitTests
         }
         #endregion
 
+        [TestMethod]
+        #region AddsNewUser
+        public void Post_AddsNewUser()
+        {
+            // Arrange
+            var expectedPayments = new TbPayment { PaymentId = 1, TransactionNumber = "User1", Currency = "SDG", Amount = (decimal)700.5, CurrentState = 1 };
+
+            // Act
+            _controller.Post(expectedPayments);
+
+            // Assert
+            _mockPaymentsBusinessLayer.Verify(b => b.Save(expectedPayments), Times.Once);
+        }
+        #endregion
     }
 }

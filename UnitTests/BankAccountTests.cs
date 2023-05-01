@@ -8,6 +8,7 @@ using static Bl.IBusinessLayer;
 
 namespace UnitTests
 {
+    [TestClass]
     public class BankAccountTests
     {
 
