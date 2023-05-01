@@ -1,4 +1,4 @@
-﻿@model TbUser
+﻿@model TbPayment
 
 <div class="container-fluid page-body-wrapper">
      <div class="main-panel">
@@ -7,34 +7,36 @@
                 <h4 class="card-title">Default form</h4>
                 <p class="card-description"> Basic form layout </p>
                 <form class="form-inline repeater" class="forms-sample" method="post" enctype="multipart/form-data" class="form-inline repeater"
-                    asp-controller="Users" asp-action="Save" role="form">
+                    asp-controller="Payments" asp-action="Save" role="form">
                     <!--------------------- hidden Files ---------------------------->
                     <input asp-for="@Model.UserId" type="hidden"/>
+                    <input asp-for="@Model.PaymentId" type="hidden"/>
+                    <input asp-for="@Model.BankAccountId" type="hidden"/>
                     <!-------------------- end hidden Files ----------------------->
                     <!-------------------- start TbUsers form --------------------->
                     <div class="form-group">
-                    <label >User Name</label>
-                    <input type="text" class="form-control"  placeholder="User Name"
-                            asp-for="@Model.UserName" maxlength="50">
-                    <span  asp-validation-for="@Model.UserName" class="text-danger"></span>
+                    <label >Transaction Number</label>
+                    <input type="text" class="form-control"  placeholder="Transaction Number"
+                            asp-for="@Model.TransactionNumber" maxlength="50">
+                    <span  asp-validation-for="@Model.TransactionNumber" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                    <label >Password</label>
-                    <input type="password" class="form-control"  placeholder="Password"
-                            asp-for="@Model.Password" maxlength="20">
-                    <span  asp-validation-for="@Model.Password" class="text-danger"></span>
+                    <label >Date</label>
+                    <input type="datetime" class="form-control"  placeholder="Date"
+                            asp-for="@Model.Date">
+                    <span  asp-validation-for="@Model.Date" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                    <label >Email</label>
-                    <input type="Email" class="form-control"  placeholder="Email"
-                            asp-for="@Model.Email" maxlength="50">
-                    <span  asp-validation-for="@Model.Email" class="text-danger"></span>
+                    <label >Amount</label>
+                    <input type="number" class="form-control"  placeholder="Amount"
+                            asp-for="@Model.Amount" maxlength="12">
+                    <span  asp-validation-for="@Model.Amount" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                    <label >Phone</label>
-                    <input type="text" class="form-control"  placeholder="Phone"
-                            asp-for="@Model.Phone" maxlength="20">
-                    <span  asp-validation-for="@Model.Phone" class="text-danger"></span>
+                    <label >Currency</label>
+                    <input type="text" class="form-control"  placeholder="Currency"
+                            asp-for="@Model.Currency" maxlength="20">
+                    <span  asp-validation-for="@Model.Currency" class="text-danger"></span>
                     </div>
                     <!-------------------- start TbUsers form --------------------->
                     <button type="submit" formmethod="post"  class="btn btn-gradient-primary me-2">Submit</button>
