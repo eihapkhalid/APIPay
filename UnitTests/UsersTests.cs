@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿using Moq;
 using APIPay.ApiControllers;
 using Bl;
 using System.Collections.Generic;
@@ -10,13 +9,13 @@ using static Bl.IBusinessLayer;
 namespace UnitTests
 {
     [TestClass]
-    public class ClsUsersTests
+    public class UsersTests
     {
         #region dependency injection region
         private readonly UsersController _controller;
         private readonly Mock<IBusinessLayer<TbUser>> _mockUsersBusinessLayer;
         
-        public ClsUsersTests()
+        public UsersTests()
         {
             _mockUsersBusinessLayer = new Mock<IBusinessLayer<TbUser>>();
             _controller = new UsersController
