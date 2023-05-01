@@ -25,13 +25,13 @@ namespace APIPay.Areas.Admin.Controllers
         #endregion
 
         #region Edit Payment by id
-        public IActionResult Edit(int? paymentsd)
+        public IActionResult Edit(int? paymentId)
         {
             var ObjPayment = new TbPayment();
 
-            if (paymentsd != null)
+            if (paymentId != null)
             {
-                ObjPayment = oClsTbPayment.GetById(Convert.ToInt32(paymentsd));
+                ObjPayment = oClsTbPayment.GetById(Convert.ToInt32(paymentId));
             }
             return View(ObjPayment);
         }
