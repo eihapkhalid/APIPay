@@ -61,5 +61,21 @@ namespace UnitTests
             Assert.AreEqual(expectedUser, result);
         }
         #endregion
+
+        [TestMethod]
+        #region AddsNewUser
+        public void Post_AddsNewUser()
+        {
+            // Arrange
+            var newUser = new TbUser { UserId = 1, UserName = "User1", Password = "123", Email = "eihap@gmail.com", CurrentState = 1 };
+
+            // Act
+            _controller.Post(newUser);
+
+            // Assert
+            _mockUsersBusinessLayer.Verify(b => b.Save(newUser), Times.Once);
+        }
+        #endregion
+
     }
 }
