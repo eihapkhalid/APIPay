@@ -94,20 +94,57 @@ namespace Bl
 
         public async Task<bool> ProcessPayment(int userId, decimal amount)
         {
-            // TODO: Implement payment processing algorithm here
-            // You can use the userId and amount to validate the payment
-
-            // Insert payment record into database
-            var payment = new TbPayment
+            // Validate payment information
+            bool isValid = ValidatePayment(userId, amount);
+            if (!isValid)
             {
-                UserId = userId,
-                Amount = amount,
-                Date = DateTime.UtcNow
-            };
-            await context.TbPayments.AddAsync(payment);
-            await context.SaveChangesAsync();
+                return false;
+            }
 
-            // Return true to indicate payment was successfully processed
+            try
+            {
+                // Authenticate payment method
+                /*PaymentGateway gateway = new PaymentGateway();
+                bool isAuthorized = await gateway.AuthorizePayment(userId, amount);
+                if (!isAuthorized)
+                {
+                    return false;
+                }
+
+                // Process payment
+                PaymentResult result = await gateway.ProcessPayment(userId, amount);
+                if (result.Status != PaymentStatus.Successful)
+                {
+                    return false;
+                }*/
+
+                // Insert payment record into database
+                var payment = new TbPayment
+                {
+                    UserId = userId,
+                    Amount = amount,
+                    Date = DateTime.UtcNow
+                };
+                await context.TbPayments.AddAsync(payment);
+                await context.SaveChangesAsync();
+
+                // Return true to indicate payment was successfully processed
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Handle errors and exceptions
+                // Log error information for troubleshooting purposes
+                Console.WriteLine($"Payment processing error: {ex.Message}");
+                return false;
+            }
+        }
+
+        private bool ValidatePayment(int userId, decimal amount)
+        {
+            // TODO: Implement payment validation logic here
+            // Check that user exists and has sufficient funds, and that amount is valid
+            // Return true if payment is valid, false otherwise
             return true;
         }
 
