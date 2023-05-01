@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Text;
+using System.Security.Claims;
 
 namespace APIPay.ApiControllers
 {
@@ -31,7 +32,6 @@ namespace APIPay.ApiControllers
         #region Login function
         // POST https://localhost:7255/api/login
         [HttpPost]
-        // [Route("Login")] dont write this !
         [AllowAnonymous]
         public IActionResult Login([FromBody] TbUser user)
         {
@@ -49,13 +49,21 @@ namespace APIPay.ApiControllers
         #region GenerateToken Function :
         string GenerateToken(TbUser user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(configuration["Jwt: Issuer"],
-                configuration["Jwt: Audience"],
-                null,
-            expires: DateTime.Now.AddMinutes(120),
-            signingCredentials: credentials);
+
+            var claims = new[] {
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: configuration["Jwt:Issuer"],
+                audience: configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddDays(7),
+                signingCredentials: credentials);
+
             return new JwtSecurityTokenHandler().WriteToken(token);
 
         }
