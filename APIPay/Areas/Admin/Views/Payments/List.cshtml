@@ -1,4 +1,4 @@
-﻿@model List<TbUser>
+﻿@model List<TbPayment>
 
   <div class="card-body">
     <div class="row">
@@ -8,11 +8,10 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th class="sortStyle">User name<i class="mdi mdi-chevron-down"></i></th>
-                    <th class="sortStyle">Password<i class="mdi mdi-chevron-down"></i></th>
-                    <th class="sortStyle">Email<i class="mdi mdi-chevron-down"></i></th>
-                    <th class="sortStyle">Phone<i class="mdi mdi-chevron-down"></i></th>
-                    <th class="sortStyle">CurrentState<i class="mdi mdi-chevron-down"></i></th>
+                    <th class="sortStyle">Transaction Number<i class="mdi mdi-chevron-down"></i></th>
+                    <th class="sortStyle">Date<i class="mdi mdi-chevron-down"></i></th>
+                    <th class="sortStyle">Amount<i class="mdi mdi-chevron-down"></i></th>
+                    <th class="sortStyle">Currency<i class="mdi mdi-chevron-down"></i></th>
                     <th ></th>
 
                 </tr>
@@ -25,14 +24,13 @@
                             counter++;
                             <tr>
                                 <td>@counter</td>
-                                <td>@user.UserName</td>
-                                <td>@user.Password</td>
-                                <td>@user.Email</td>
-                                <td>@user.Phone</td>
-                                <td>@user.CurrentState</td>  
+                                <td>@user.TransactionNumber</td>
+                                <td>@user.Date</td>
+                                <td>@user.Amount</td>
+                                <td>@user.Currency</td>
                                 <td>
-                                    <a asp-area="admin" asp-controller="Users" asp-action="Edit"   asp-route-userId="@user.UserId "  type="button" value="Edit" class="btn btn-gradient-info btn-rounded btn-fw" >    Edit</a> 
-                                    <a asp-area="admin" asp-controller="Users" asp-action="Delete" asp-route-userId="@user.UserId "  type="button" value="Delete" class="btn btn-gradient-danger btn-rounded btn-fw" >Delete</a>
+                                    <a asp-area="admin" asp-controller="Users" asp-action="Edit"   asp-route-paymentId="@user.PaymentId "  type="button" value="Edit" class="btn btn-gradient-info btn-rounded btn-fw" >    Edit</a> 
+                                    <a asp-area="admin" asp-controller="Users" asp-action="Delete" asp-route-paymentId="@user.PaymentId "  type="button" value="Delete" class="btn btn-gradient-danger btn-rounded btn-fw" >Delete</a>
                                 </td>
                             </tr>
                         }
