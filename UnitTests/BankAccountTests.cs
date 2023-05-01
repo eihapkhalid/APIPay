@@ -24,5 +24,25 @@ namespace UnitTests
                 );
         }
         #endregion
+
+        [TestMethod]
+        #region GetAllBankAccounts
+        public void GetAllBankAccounts_ReturnsListOfBankAccounts()
+        {
+            // Arrange
+            var expectedUsers = new List<TbBankAccount>
+                    {
+                        new TbBankAccount { UserId = 1, AccountNumber = "1234567891011121344", BankName="bank1", BranchNumber="Sudan", Balance =(decimal)200.25, CurrentState = 1 },
+                        new TbBankAccount {  UserId = 1, AccountNumber ="9867510531011121344", BankName="bank2", BranchNumber="Saudi", Balance =(decimal)10.25F, CurrentState = 1 }
+                    };
+            _mockBankAccountBusinessLayer.Setup(b => b.GetAll()).Returns(expectedUsers);
+            // Act
+            var result = _controller.Get();
+
+            // Assert
+            Assert.AreEqual(expectedUsers, result);
+        }
+        #endregion
+
     }
 }
