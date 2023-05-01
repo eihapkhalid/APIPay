@@ -1,6 +1,5 @@
 ﻿using Moq;
 using APIPay.ApiControllers;
-using Bl;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Domains;
