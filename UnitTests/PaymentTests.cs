@@ -45,5 +45,22 @@ namespace UnitTests
         }
         #endregion
 
+        [TestMethod]
+        #region GetPaymentById
+        public void GetPaymentById_ReturnsPayment()
+        {
+            // Arrange
+            var PaymentId = 1;
+            var expectedPayments = new TbPayment { PaymentId = 1, TransactionNumber = "User1", Currency = "SDG", Amount = (decimal)700.5, CurrentState = 1 };
+            _mockPaymentsBusinessLayer.Setup(b => b.GetById(PaymentId)).Returns(expectedPayments);
+
+            // Act
+            var result = _controller.Get(PaymentId);
+
+            // Assert
+            Assert.AreEqual(expectedPayments, result);
+        }
+        #endregion
+
     }
 }
