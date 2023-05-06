@@ -12,10 +12,12 @@ namespace Bl
     public class ClsTbPayment : IBusinessLayer<TbPayment>
     {
         #region define DbContext
-        PaymentUserDbContext context;
-        public ClsTbPayment(PaymentUserDbContext ctx)
+        private PaymentUserDbContext context;
+        private readonly IUnitOfWork unitOfWork;
+        public ClsTbPayment(PaymentUserDbContext ctx, IUnitOfWork _unitOfWork)
         {
             context = ctx;
+            unitOfWork = _unitOfWork;
         }
         #endregion
 
@@ -27,7 +29,7 @@ namespace Bl
 
                 var payment = GetById(id);
                 payment.CurrentState = 0;
-                context.SaveChanges();
+                unitOfWork.Commit(); //context.SaveChanges();
                 return true;
 
             }
@@ -82,7 +84,7 @@ namespace Bl
                 {
                     context.Entry(payment).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 }
-                context.SaveChanges();
+                unitOfWork.Commit(); //context.SaveChanges();
                 return true;
             }
             catch
@@ -92,6 +94,7 @@ namespace Bl
         }
         #endregion
 
+        #region ProcessPayment
         public async Task<bool> ProcessPayment(int userId, decimal amount)
         {
             // Validate payment information
@@ -126,7 +129,7 @@ namespace Bl
                     Date = DateTime.UtcNow
                 };
                 await context.TbPayments.AddAsync(payment);
-                await context.SaveChangesAsync();
+                unitOfWork.CommitAsync();//await _context.SaveChangesAsync();
 
                 // Return true to indicate payment was successfully processed
                 return true;
@@ -146,8 +149,8 @@ namespace Bl
             // Check that user exists and has sufficient funds, and that amount is valid
             // Return true if payment is valid, false otherwise
             return true;
-        }
-
+        } 
+        #endregion
 
         #region Hashed Function
         public bool Payments(TbPayment table)

@@ -9,10 +9,12 @@ namespace APIPay.Areas.Admin.Controllers
     public class PaymentsController : Controller
     {
         #region Dependancy Injections
-        IBusinessLayer<TbPayment> oClsTbPayment;
-        public PaymentsController(IBusinessLayer<TbPayment> payment)
+        private IBusinessLayer<TbPayment> oClsTbPayment;
+        private readonly IUnitOfWork unitOfWork;
+        public PaymentsController(IBusinessLayer<TbPayment> payment, IUnitOfWork _unitOfWork)
         {
             oClsTbPayment = payment;
+            unitOfWork = _unitOfWork;
         }
         #endregion
 
@@ -20,6 +22,7 @@ namespace APIPay.Areas.Admin.Controllers
         public IActionResult List()
         {
             var lstPayments = oClsTbPayment.GetAll();
+            unitOfWork.Dispose();
             return View(lstPayments);
         }
         #endregion
@@ -33,6 +36,7 @@ namespace APIPay.Areas.Admin.Controllers
             {
                 ObjPayment = oClsTbPayment.GetById(Convert.ToInt32(paymentId));
             }
+            unitOfWork.Dispose();
             return View(ObjPayment);
         }
         #endregion
@@ -47,6 +51,7 @@ namespace APIPay.Areas.Admin.Controllers
                 return View("Edit", payment);
             }
             oClsTbPayment.Save(payment);
+            unitOfWork.Dispose();
             return RedirectToAction("List");
         }
         #endregion
@@ -55,6 +60,7 @@ namespace APIPay.Areas.Admin.Controllers
         public IActionResult Delete(int paymentId)
         {
             oClsTbPayment.Delete(paymentId);
+            unitOfWork.Dispose();
             return RedirectToAction("List");
         }
         #endregion

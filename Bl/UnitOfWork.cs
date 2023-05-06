@@ -38,6 +38,11 @@ namespace Bl
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public async Task CommitAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 
 }

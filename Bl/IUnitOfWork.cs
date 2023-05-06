@@ -10,5 +10,6 @@ namespace Bl
     {
         void Commit();
         void Dispose();
+        void CommitAsync();
     }
 }
