@@ -1,7 +1,6 @@
-﻿using Bl;
+﻿using Bl.Interfaces;
 using Domains;
 using Microsoft.AspNetCore.Mvc;
-using static Bl.IBusinessLayer;
 
 namespace APIPay.Areas.Admin.Controllers
 {
@@ -9,11 +8,11 @@ namespace APIPay.Areas.Admin.Controllers
     public class PaymentsController : Controller
     {
         #region Dependancy Injections
-        private IBusinessLayer<TbPayment> oClsTbPayment;
+        private IBusinessLayer<TbPayment> oPaymentService;
         private readonly IUnitOfWork unitOfWork;
         public PaymentsController(IBusinessLayer<TbPayment> payment, IUnitOfWork _unitOfWork)
         {
-            oClsTbPayment = payment;
+            oPaymentService = payment;
             unitOfWork = _unitOfWork;
         }
         #endregion
@@ -21,7 +20,7 @@ namespace APIPay.Areas.Admin.Controllers
         #region List of Payments
         public IActionResult List()
         {
-            var lstPayments = oClsTbPayment.GetAll();
+            var lstPayments = oPaymentService.GetAll();
             unitOfWork.Dispose();
             return View(lstPayments);
         }
@@ -34,7 +33,7 @@ namespace APIPay.Areas.Admin.Controllers
 
             if (paymentId != null)
             {
-                ObjPayment = oClsTbPayment.GetById(Convert.ToInt32(paymentId));
+                ObjPayment = oPaymentService.GetById(Convert.ToInt32(paymentId));
             }
             unitOfWork.Dispose();
             return View(ObjPayment);
@@ -50,7 +49,7 @@ namespace APIPay.Areas.Admin.Controllers
             {
                 return View("Edit", payment);
             }
-            oClsTbPayment.Save(payment);
+            oPaymentService.Save(payment);
             unitOfWork.Dispose();
             return RedirectToAction("List");
         }
@@ -59,7 +58,7 @@ namespace APIPay.Areas.Admin.Controllers
         #region Delete By payment Id
         public IActionResult Delete(int paymentId)
         {
-            oClsTbPayment.Delete(paymentId);
+            oPaymentService.Delete(paymentId);
             unitOfWork.Dispose();
             return RedirectToAction("List");
         }

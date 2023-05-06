@@ -1,7 +1,6 @@
-﻿using Bl;
+﻿using Bl.Interfaces;
 using Domains;
 using Microsoft.AspNetCore.Mvc;
-using static Bl.IBusinessLayer;
 
 namespace APIPay.Areas.Admin.Controllers
 {
@@ -9,11 +8,11 @@ namespace APIPay.Areas.Admin.Controllers
     public class UsersController : Controller
     {
         #region Dependancy Injections
-        private IBusinessLayer<TbUser> oClsUsers;
+        private IBusinessLayer<TbUser> oUsersService;
         private readonly IUnitOfWork unitOfWork;
         public UsersController(IBusinessLayer<TbUser> Users, IUnitOfWork _unitOfWork)
         {
-            oClsUsers = Users;
+            oUsersService = Users;
             unitOfWork = _unitOfWork;
         }
         #endregion
@@ -28,7 +27,7 @@ namespace APIPay.Areas.Admin.Controllers
         #region List of Users
         public IActionResult List()
         {
-            var lstUsers = oClsUsers.GetAll();
+            var lstUsers = oUsersService.GetAll();
             unitOfWork.Dispose();
             return View(lstUsers);
         }
@@ -41,7 +40,7 @@ namespace APIPay.Areas.Admin.Controllers
 
             if (userId != null)
             {
-                ObjUser = oClsUsers.GetById(Convert.ToInt32(userId));
+                ObjUser = oUsersService.GetById(Convert.ToInt32(userId));
             }
             unitOfWork.Dispose();
             return View(ObjUser);
@@ -57,7 +56,7 @@ namespace APIPay.Areas.Admin.Controllers
             {
                 return View("Edit", user);
             }
-            oClsUsers.Save(user);
+            oUsersService.Save(user);
             unitOfWork.Dispose();
             return RedirectToAction("List");
         }
@@ -66,7 +65,7 @@ namespace APIPay.Areas.Admin.Controllers
         #region Delete By User Id
         public IActionResult Delete(int userId)
         {
-            oClsUsers.Delete(userId);
+            oUsersService.Delete(userId);
             unitOfWork.Dispose();
             return RedirectToAction("List");
         }

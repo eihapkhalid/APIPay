@@ -1,18 +1,17 @@
-﻿using Bl;
+﻿using Bl.Interfaces;
 using Domains;
 using Microsoft.AspNetCore.Mvc;
-using static Bl.IBusinessLayer;
 
 namespace APIPay.Areas.Admin.Controllers
 {
     public class BankAccountsController : Controller
     {
         #region Dependancy Injections
-        private IBusinessLayer<TbBankAccount> oClsTbBankAccount;
+        private IBusinessLayer<TbBankAccount> oBankAccountService;
         private readonly IUnitOfWork unitOfWork;
         public BankAccountsController(IBusinessLayer<TbBankAccount> bankAccount, IUnitOfWork _unitOfWork)
         {
-            oClsTbBankAccount = bankAccount;
+            oBankAccountService = bankAccount;
             unitOfWork = _unitOfWork;
         }
         #endregion
@@ -20,7 +19,7 @@ namespace APIPay.Areas.Admin.Controllers
         #region List of Bank Account
         public IActionResult List()
         {
-            var lstBankAccounts = oClsTbBankAccount.GetAll();
+            var lstBankAccounts = oBankAccountService.GetAll();
             unitOfWork.Dispose();
             return View(lstBankAccounts);
         }
@@ -33,7 +32,7 @@ namespace APIPay.Areas.Admin.Controllers
 
             if (bankAccountId != null)
             {
-                ObjBankAccount = oClsTbBankAccount.GetById(Convert.ToInt32(bankAccountId));
+                ObjBankAccount = oBankAccountService.GetById(Convert.ToInt32(bankAccountId));
             }
             unitOfWork.Dispose();
             return View(ObjBankAccount);
@@ -49,7 +48,7 @@ namespace APIPay.Areas.Admin.Controllers
             {
                 return View("Edit", bankAccount);
             }
-            oClsTbBankAccount.Save(bankAccount);
+            oBankAccountService.Save(bankAccount);
             unitOfWork.Dispose();
             return RedirectToAction("List");
         }
@@ -58,7 +57,7 @@ namespace APIPay.Areas.Admin.Controllers
         #region Delete By bankAccount Id
         public IActionResult Delete(int bankAccountId)
         {
-            oClsTbBankAccount.Delete(bankAccountId);
+            oBankAccountService.Delete(bankAccountId);
             unitOfWork.Dispose();
             return RedirectToAction("List");
         }

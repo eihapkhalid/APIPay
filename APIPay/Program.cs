@@ -1,10 +1,11 @@
 using Bl;
+using Bl.Interfaces;
+using Bl.Services;
 using Domains;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using static Bl.IBusinessLayer;
 
 namespace APIPay
 {
@@ -22,9 +23,9 @@ namespace APIPay
 
             #region Add scope (dependcy injection) 
             //Add scope for TbUser,TbBankAccount,TbPayment (dependcy injection)
-            builder.Services.AddScoped<IBusinessLayer<TbUser>, ClsUsers>();
-            builder.Services.AddScoped<IBusinessLayer<TbBankAccount>, ClsTbBankAccount>();
-            builder.Services.AddScoped<IBusinessLayer<TbPayment>, ClsTbPayment>();
+            builder.Services.AddScoped<IBusinessLayer<TbUser>, UsersService>();
+            builder.Services.AddScoped<IBusinessLayer<TbBankAccount>, BankAccountService>();
+            builder.Services.AddScoped<IBusinessLayer<TbPayment>, PaymentService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             #endregion
 

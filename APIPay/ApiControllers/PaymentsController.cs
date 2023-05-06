@@ -1,9 +1,8 @@
-﻿using Bl;
-using Domains;
+﻿using Domains;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using static Bl.IBusinessLayer;
+using Bl.Interfaces;
 
 namespace APIPay.ApiControllers
 {
@@ -13,10 +12,10 @@ namespace APIPay.ApiControllers
     public class PaymentsController : ControllerBase
     {
         #region dependency injection region
-        IBusinessLayer<TbPayment> oClsTbPayment;
+        IBusinessLayer<TbPayment> oPaymentService;
         public PaymentsController(IBusinessLayer<TbPayment> payment)
         {
-            oClsTbPayment = payment;
+            oPaymentService = payment;
 
         }
         #endregion
@@ -26,7 +25,7 @@ namespace APIPay.ApiControllers
         [Route("Get")]
         public List<TbPayment> Get()
         {
-            return oClsTbPayment.GetAll();
+            return oPaymentService.GetAll();
         }
         #endregion
 
@@ -35,7 +34,7 @@ namespace APIPay.ApiControllers
         [Route("Get/{id}")]
         public TbPayment Get(int id)
         {
-            return oClsTbPayment.GetById(id);
+            return oPaymentService.GetById(id);
         }
         #endregion
 
@@ -43,7 +42,7 @@ namespace APIPay.ApiControllers
         [HttpPost]
         public void Post([FromBody] TbPayment payment)
         {
-            oClsTbPayment.Save(payment);
+            oPaymentService.Save(payment);
         }
         #endregion
 
@@ -52,7 +51,7 @@ namespace APIPay.ApiControllers
         [Route("Delete")]
         public void Delete([FromBody] int paymentId)
         {
-            oClsTbPayment.Delete(paymentId);
+            oPaymentService.Delete(paymentId);
         }
         #endregion
     }

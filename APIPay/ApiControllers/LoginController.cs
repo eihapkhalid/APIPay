@@ -1,12 +1,9 @@
-﻿using Domains;
+﻿using Bl.Interfaces;
+using Domains;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using static Bl.IBusinessLayer;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.Configuration;
-using System;
 using System.Text;
 
 namespace APIPay.ApiControllers
@@ -20,10 +17,10 @@ namespace APIPay.ApiControllers
         //Jwt:
         IConfiguration configuration;
 
-        IBusinessLayer<TbUser> oClsUsers;
+        IBusinessLayer<TbUser> oUsersService;
         public LoginController(IConfiguration iconfig, IBusinessLayer<TbUser> Users)
         {
-            oClsUsers = Users;
+            oUsersService = Users;
             configuration = iconfig;
         }
         #endregion
@@ -36,7 +33,7 @@ namespace APIPay.ApiControllers
         public IActionResult Login([FromBody] TbUser user)
         {
             var response = Unauthorized();
-            var xuser = oClsUsers.AuthorizeUser(user);
+            var xuser = oUsersService.AuthorizeUser(user);
             if (xuser != null)
             {
                 var newToken = GenerateToken(user);

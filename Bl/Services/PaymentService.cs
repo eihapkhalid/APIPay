@@ -1,20 +1,14 @@
-﻿using Domains;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Bl.IBusinessLayer;
+﻿using Bl.Interfaces;
+using Domains;
 
-namespace Bl
+namespace Bl.Services
 {
-    public class ClsTbPayment : IBusinessLayer<TbPayment>
+    public class PaymentService : IBusinessLayer<TbPayment>
     {
         #region define DbContext
         private PaymentUserDbContext context;
         private readonly IUnitOfWork unitOfWork;
-        public ClsTbPayment(PaymentUserDbContext ctx, IUnitOfWork _unitOfWork)
+        public PaymentService(PaymentUserDbContext ctx, IUnitOfWork _unitOfWork)
         {
             context = ctx;
             unitOfWork = _unitOfWork;
@@ -149,7 +143,7 @@ namespace Bl
             // Check that user exists and has sufficient funds, and that amount is valid
             // Return true if payment is valid, false otherwise
             return true;
-        } 
+        }
         #endregion
 
         #region Hashed Function

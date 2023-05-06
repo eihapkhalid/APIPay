@@ -1,9 +1,7 @@
-﻿using Bl;
-using Domains;
+﻿using Domains;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using static Bl.IBusinessLayer;
+using Bl.Interfaces;
 
 namespace APIPay.ApiControllers
 {
@@ -13,10 +11,10 @@ namespace APIPay.ApiControllers
     public class BankAccounsController : ControllerBase
     {
         #region dependency injection region
-        IBusinessLayer<TbBankAccount> oClsTbBankAccount;
+        IBusinessLayer<TbBankAccount> oBankAccountService;
         public BankAccounsController(IBusinessLayer<TbBankAccount> bankAccount)
         {
-            oClsTbBankAccount = bankAccount;
+            oBankAccountService = bankAccount;
 
         }
         #endregion
@@ -26,7 +24,7 @@ namespace APIPay.ApiControllers
         [Route("Get")]
         public List<TbBankAccount> Get()
         {
-            return oClsTbBankAccount.GetAll();
+            return oBankAccountService.GetAll();
         }
         #endregion
 
@@ -35,7 +33,7 @@ namespace APIPay.ApiControllers
         [Route("Get/{id}")]
         public TbBankAccount Get(int id)
         {
-            return oClsTbBankAccount.GetById(id);
+            return oBankAccountService.GetById(id);
         }
         #endregion
 
@@ -43,7 +41,7 @@ namespace APIPay.ApiControllers
         [HttpPost]
         public void Post([FromBody] TbBankAccount bankAccount)
         {
-            oClsTbBankAccount.Save(bankAccount);
+            oBankAccountService.Save(bankAccount);
         }
         #endregion
 
@@ -52,7 +50,7 @@ namespace APIPay.ApiControllers
         [Route("Delete")]
         public void Delete([FromBody] int banckAcountId)
         {
-            oClsTbBankAccount.Delete(banckAcountId);
+            oBankAccountService.Delete(banckAcountId);
         }
         #endregion
     }

@@ -1,19 +1,14 @@
-﻿using Domains;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Bl.IBusinessLayer;
+﻿using Bl.Interfaces;
+using Domains;
 
-namespace Bl
+namespace Bl.Services
 {
-    public class ClsTbBankAccount : IBusinessLayer<TbBankAccount>
+    public class BankAccountService : IBusinessLayer<TbBankAccount>
     {
         #region define DbContext
         private PaymentUserDbContext context;
         private readonly IUnitOfWork unitOfWork;
-        public ClsTbBankAccount(PaymentUserDbContext ctx, IUnitOfWork _unitOfWork)
+        public BankAccountService(PaymentUserDbContext ctx, IUnitOfWork _unitOfWork)
         {
             context = ctx;
             unitOfWork = _unitOfWork;
@@ -91,7 +86,7 @@ namespace Bl
             {
                 return false;
             }
-        } 
+        }
         #endregion
 
         #region Hashed Func

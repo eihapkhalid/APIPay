@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bl
+namespace Bl.Interfaces
 {
-    public interface IBusinessLayer
-    {
-        public interface IBusinessLayer<t>
+    public interface  IBusinessLayer<t>
         {
             List<t> GetAll();
             t GetById(int id);
@@ -16,6 +14,6 @@ namespace Bl
             bool Delete(int id);
             bool Payments(t table);
             t AuthorizeUser(t table);
-        }
+        
     }
 }

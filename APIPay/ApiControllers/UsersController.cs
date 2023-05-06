@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using static Bl.IBusinessLayer;
+using Bl.Interfaces;
 
 namespace APIPay.ApiControllers
 {
@@ -12,10 +12,10 @@ namespace APIPay.ApiControllers
     public class UsersController : ControllerBase
     {
         #region dependency injection region
-        IBusinessLayer<TbUser> oClsUsers;
+        IBusinessLayer<TbUser> oUsersService;
         public UsersController(IBusinessLayer<TbUser> Users)
         {
-            oClsUsers = Users;
+            oUsersService = Users;
 
         }
         #endregion
@@ -25,7 +25,7 @@ namespace APIPay.ApiControllers
         [Route("Get")]
         public List<TbUser> Get()
         {
-            return oClsUsers.GetAll();
+            return oUsersService.GetAll();
         }
         #endregion
 
@@ -34,7 +34,7 @@ namespace APIPay.ApiControllers
         [Route("Get/{id}")]
         public TbUser Get(int id)
         {
-            return oClsUsers.GetById(id);
+            return oUsersService.GetById(id);
         }
         #endregion
 
@@ -42,7 +42,7 @@ namespace APIPay.ApiControllers
         [HttpPost]
         public void Post([FromBody] TbUser user)
         {
-            oClsUsers.Save(user);
+            oUsersService.Save(user);
         }
         #endregion
 
@@ -51,7 +51,7 @@ namespace APIPay.ApiControllers
         [Route("Delete")]
         public void Delete([FromBody] int userId)
         {
-            oClsUsers.Delete(userId);
+            oUsersService.Delete(userId);
         }
         #endregion
 

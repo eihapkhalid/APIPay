@@ -1,19 +1,14 @@
-﻿using Domains;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Bl.IBusinessLayer;
+﻿using Bl.Interfaces;
+using Domains;
 
-namespace Bl
+namespace Bl.Services
 {
-    public class ClsUsers : IBusinessLayer<TbUser>
+    public class UsersService : IBusinessLayer<TbUser>
     {
         #region define DbContext
         private PaymentUserDbContext context;
         private readonly IUnitOfWork unitOfWork;
-        public ClsUsers(PaymentUserDbContext ctx, IUnitOfWork _unitOfWork)
+        public UsersService(PaymentUserDbContext ctx, IUnitOfWork _unitOfWork)
         {
             context = ctx;
             unitOfWork = _unitOfWork;
@@ -36,7 +31,7 @@ namespace Bl
             {
                 return false;
             }
-        } 
+        }
         #endregion
 
         #region Get All User Data
@@ -81,7 +76,7 @@ namespace Bl
                 }
                 else
                 {
-                   // user.CurrentState = 1;
+                    // user.CurrentState = 1;
                     context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 }
                 unitOfWork.Commit(); //context.SaveChanges();
@@ -123,7 +118,7 @@ namespace Bl
         public bool Delete(TbUser table)
         {
             throw new NotImplementedException();
-        } 
+        }
         #endregion
     }
 }
