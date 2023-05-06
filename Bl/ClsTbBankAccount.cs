@@ -11,10 +11,12 @@ namespace Bl
     public class ClsTbBankAccount : IBusinessLayer<TbBankAccount>
     {
         #region define DbContext
-        PaymentUserDbContext context;
-        public ClsTbBankAccount(PaymentUserDbContext ctx)
+        private PaymentUserDbContext context;
+        private readonly IUnitOfWork unitOfWork;
+        public ClsTbBankAccount(PaymentUserDbContext ctx, IUnitOfWork _unitOfWork)
         {
             context = ctx;
+            unitOfWork = _unitOfWork;
         }
         #endregion
 
@@ -26,7 +28,7 @@ namespace Bl
 
                 var bankAccount = GetById(id);
                 bankAccount.CurrentState = 0;
-                context.SaveChanges();
+                unitOfWork.Commit(); //context.SaveChanges();
                 return true;
 
             }
@@ -82,7 +84,7 @@ namespace Bl
                     // user.CurrentState = 1;
                     context.Entry(bankAccount).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 }
-                context.SaveChanges();
+                unitOfWork.Commit(); //context.SaveChanges();
                 return true;
             }
             catch

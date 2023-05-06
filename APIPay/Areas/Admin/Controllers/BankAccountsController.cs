@@ -8,10 +8,12 @@ namespace APIPay.Areas.Admin.Controllers
     public class BankAccountsController : Controller
     {
         #region Dependancy Injections
-        IBusinessLayer<TbBankAccount> oClsTbBankAccount;
-        public BankAccountsController(IBusinessLayer<TbBankAccount> bankAccount)
+        private IBusinessLayer<TbBankAccount> oClsTbBankAccount;
+        private readonly IUnitOfWork unitOfWork;
+        public BankAccountsController(IBusinessLayer<TbBankAccount> bankAccount, IUnitOfWork _unitOfWork)
         {
             oClsTbBankAccount = bankAccount;
+            unitOfWork = _unitOfWork;
         }
         #endregion
 
@@ -19,6 +21,7 @@ namespace APIPay.Areas.Admin.Controllers
         public IActionResult List()
         {
             var lstBankAccounts = oClsTbBankAccount.GetAll();
+            unitOfWork.Dispose();
             return View(lstBankAccounts);
         }
         #endregion
@@ -32,6 +35,7 @@ namespace APIPay.Areas.Admin.Controllers
             {
                 ObjBankAccount = oClsTbBankAccount.GetById(Convert.ToInt32(bankAccountId));
             }
+            unitOfWork.Dispose();
             return View(ObjBankAccount);
         }
         #endregion
@@ -46,6 +50,7 @@ namespace APIPay.Areas.Admin.Controllers
                 return View("Edit", bankAccount);
             }
             oClsTbBankAccount.Save(bankAccount);
+            unitOfWork.Dispose();
             return RedirectToAction("List");
         }
         #endregion
@@ -54,6 +59,7 @@ namespace APIPay.Areas.Admin.Controllers
         public IActionResult Delete(int bankAccountId)
         {
             oClsTbBankAccount.Delete(bankAccountId);
+            unitOfWork.Dispose();
             return RedirectToAction("List");
         }
         #endregion
