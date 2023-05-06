@@ -11,7 +11,7 @@ namespace Bl
     public class ClsUsers : IBusinessLayer<TbUser>
     {
         #region define DbContext
-        PaymentUserDbContext context;
+        private PaymentUserDbContext context;
         private readonly IUnitOfWork unitOfWork;
         public ClsUsers(PaymentUserDbContext ctx, IUnitOfWork _unitOfWork)
         {
