@@ -12,9 +12,11 @@ namespace Bl
     {
         #region define DbContext
         PaymentUserDbContext context;
-        public ClsUsers(PaymentUserDbContext ctx)
+        private readonly IUnitOfWork unitOfWork;
+        public ClsUsers(PaymentUserDbContext ctx, IUnitOfWork _unitOfWork)
         {
             context = ctx;
+            unitOfWork = _unitOfWork;
         }
         #endregion
 
@@ -26,7 +28,7 @@ namespace Bl
 
                 var user = GetById(id);
                 user.CurrentState = 0;
-                context.SaveChanges();
+                unitOfWork.Commit(); //context.SaveChanges();
                 return true;
 
             }
@@ -82,7 +84,7 @@ namespace Bl
                    // user.CurrentState = 1;
                     context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 }
-                context.SaveChanges();
+                unitOfWork.Commit(); //context.SaveChanges();
                 return true;
             }
             catch

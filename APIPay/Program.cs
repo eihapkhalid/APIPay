@@ -24,7 +24,8 @@ namespace APIPay
             //Add scope for TbUser,TbBankAccount,TbPayment (dependcy injection)
             builder.Services.AddScoped<IBusinessLayer<TbUser>, ClsUsers>();
             builder.Services.AddScoped<IBusinessLayer<TbBankAccount>, ClsTbBankAccount>();
-            builder.Services.AddScoped<IBusinessLayer<TbPayment>, ClsTbPayment>(); 
+            builder.Services.AddScoped<IBusinessLayer<TbPayment>, ClsTbPayment>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             #endregion
 
             #region JwtBearer Authentication
