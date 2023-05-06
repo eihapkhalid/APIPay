@@ -43,6 +43,11 @@ namespace Bl
         {
             await _context.SaveChangesAsync();
         }
+
+        void IUnitOfWork.CommitAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
