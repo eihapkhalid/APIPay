@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Bl.Interfaces;
 
-namespace Bl
+namespace Bl.Services
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -24,14 +24,14 @@ namespace Bl
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     _context.Dispose();
                 }
             }
-            this.disposed = true;
+            disposed = true;
         }
 
         public void Dispose()

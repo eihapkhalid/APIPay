@@ -6,11 +6,11 @@ namespace Bl.Services
     public class UsersService : IBusinessLayer<TbUser>
     {
         #region define DbContext
-        private PaymentUserDbContext context;
+        private readonly IGenericRepository<TbUser> userRepository;
         private readonly IUnitOfWork unitOfWork;
-        public UsersService(PaymentUserDbContext ctx, IUnitOfWork _unitOfWork)
+        public UsersService(IGenericRepository<TbUser> _userRepository, IUnitOfWork _unitOfWork)
         {
-            context = ctx;
+            userRepository = _userRepository;
             unitOfWork = _unitOfWork;
         }
         #endregion
@@ -20,12 +20,15 @@ namespace Bl.Services
         {
             try
             {
-
-                var user = GetById(id);
+                var user = userRepository.Get_All().SingleOrDefault(a => a.UserId == id && a.CurrentState == 1);
+                if (user == null)
+                {
+                    return false;
+                }
                 user.CurrentState = 0;
-                unitOfWork.Commit(); //context.SaveChanges();
+                userRepository.Edit(user);
+                unitOfWork.Commit(); //userRepository.SaveChanges();
                 return true;
-
             }
             catch
             {
@@ -39,7 +42,7 @@ namespace Bl.Services
         {
             try
             {
-                var lstUsers = context.TbUsers.Where(a => a.CurrentState == 1).ToList();
+                var lstUsers = userRepository.Get_All().Where(a => a.CurrentState == 1).ToList();
                 return lstUsers;
             }
             catch
@@ -54,7 +57,7 @@ namespace Bl.Services
         {
             try
             {
-                var ObjUser = context.TbUsers.Where(a => a.UserId == id && a.CurrentState == 1).FirstOrDefault();
+                var ObjUser = userRepository.FindBy(a => a.UserId == id && a.CurrentState == 1).FirstOrDefault();
                 return ObjUser;
             }
             catch
@@ -72,14 +75,13 @@ namespace Bl.Services
                 if (user.UserId == 0)
                 {
                     user.CurrentState = 1;
-                    context.TbUsers.Add(user);
+                    userRepository.Add(user);
                 }
                 else
                 {
-                    // user.CurrentState = 1;
-                    context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    userRepository.Edit(user);
                 }
-                unitOfWork.Commit(); //context.SaveChanges();
+                unitOfWork.Commit();
                 return true;
             }
             catch
@@ -95,7 +97,7 @@ namespace Bl.Services
         {
             // Perform user authorization logic based on your business requirements
             // For example, query the database to verify username and password
-            TbUser user = context.TbUsers.FirstOrDefault(u => u.UserName == table.UserName && u.Password == table.Password);
+            TbUser user = userRepository.FindBy(u => u.UserName == table.UserName && u.Password == table.Password).FirstOrDefault();
 
             if (user != null)
             {
